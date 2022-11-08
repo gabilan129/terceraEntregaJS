@@ -8,8 +8,10 @@ img{
 .darkMode{
     color: rgb(8, 7, 82);
     background-color: black;
- 
- 
 }
 
+.divTotalEstilo{
+    text-align: center;
+    font-size: 20px;
+}
 

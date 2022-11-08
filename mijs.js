@@ -193,7 +193,7 @@ function cargarProductosCarrito(array) {
     })
     array.forEach((productoA2, indice) => {
         document.getElementById(`botonEliminar${productoA2.id}`).addEventListener("click", () => {
-            //!chequeo que funciona
+            //!revisar que funciona
 
             console.log(`Boton eliminar ${productoA2.nombre}`)
             //!Eliminar del DOM
@@ -204,29 +204,30 @@ function cargarProductosCarrito(array) {
             console.log(productoA2)
             //!Eliminar del storage
             localStorage.setItem('carrito', JSON.stringify(array))
-            //!Calcular el total
+            //! Calcular Total
+
+            compraTotal()
+
 
         })
+//todo se vuelve a usar la funcion compra total para que se actualize siempre que se sume como que se saque un producto del carrito
+        compraTotal()
     })
 
 
-    let divCompra = document.getElementById("precioTotal")
-
-    function compraTotal() {
-        let totalModal = 0
-
-        totalModal = productoVendido.reduce((total, producto) => total + producto.precio, 0);
-        console.log(`MODAL su total a pagar es de $ ${totalModal}`)
-        totalModal == 0 ? divCompra.innerHTML = `No hay productos en carrito` : divCompra.innerHTML = `el total a pagar actual es de ${totalModal} `
-    }
-
-    compraTotal()
+}
 
 
 
 
+let divCompra = document.getElementById("precioTotal")
 
+function compraTotal() {
+    let totalModal = 0
 
+    totalModal = productoVendido.reduce((total, producto) => total + producto.precio, 0);
+    console.log(`MODAL su total a pagar es de $ ${totalModal}`)
+    totalModal == 0 ? divCompra.innerHTML = `No hay productos en carrito` : divCompra.innerHTML = `el total a pagar actual es de ${totalModal} `
 
 }
 botonCarrito.addEventListener("click", () => {
@@ -288,4 +289,5 @@ console.log(productoVendido)
 
 
 modoOscuro()
+
 carts()
