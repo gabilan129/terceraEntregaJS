@@ -1,6 +1,17 @@
+//todo/ Captura de id
+let botonPagar = document.getElementById("botonPago");
+let modalBody = document.getElementById("modal-body")
+let divCompra = document.getElementById("precioTotal")
+
+
+//Todo/ Array y objetos
+
 const ArrayGaseosas = [];
 const ArrayGalletas = [];
 const Arrayfiambres = [];
+
+
+
 
 class Productos {
     constructor(nombre, precio, calorias, tipo, imagen, id) {
@@ -52,16 +63,13 @@ if (localStorage.getItem("carrito")) {
 
 
 
-
+let resultado = 0;
 let valorConTarjeta = 0;
 let pagoTarjeta;
 
 function formaDePagoTarjeta() {
 
-    // pagoTarjeta = prompt("desea pagar con tarjeta")
 
-    // if (pagoTarjeta == `si`) {
-    //     console.log("en cuantas cuotas desea pagar hasta un maximo de 12")
     for (let i = 1; i <= 12; i++) {
 
         console.log(`el recargo en ${i} cuota es de %${i+3}`)
@@ -71,36 +79,8 @@ function formaDePagoTarjeta() {
         console.log(valorConTarjeta.toFixed(1));
 
     }
-    cuota()
-    // } else if (pagoTarjeta == "no") {
-    //     console.log(`usted paga ${resultado}`)
-    // } else {
-    //     console.log("error ingrese opcion valida SI o NO")
-    //     formaDePagoTarjeta()
+    
 }
-
-// }
-
-
-
-function cuota() {
-
-
-    let cuotasApagar = parseInt(prompt("Elegir el numero de cuotas a pagar "));
-    let cuotaCuenta = (cuotasApagar + 1) - 1
-    for (let i = cuotasApagar; i <= cuotaCuenta; i++) {
-
-        if (resultado) {
-            valorConTarjeta = (resultado * (i + 3)) / 100
-            valorConTarjeta = valorConTarjeta + resultado
-            console.log(`Tu Total a pagar sera de ${valorConTarjeta.toFixed(1)}`)
-        } else {
-            alert("No Ingreso una opcion valida error")
-        }
-    }
-}
-
-
 
 
 //!DOM y EVENTOS
@@ -136,6 +116,14 @@ function carts() {
             console.log(`agrego ${prod.nombre} su nuevo total a pagar es de $ ${resultado}`)
             localStorage.setItem("carrito", JSON.stringify(productoVendido))
 
+            Toastify({
+                text: `Se agrego el producto ${prod.nombre}`,
+                className: "info",
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    gravity: "botom"
+                }
+            }).showToast();
         })
 
 
@@ -148,30 +136,22 @@ function carts() {
 }
 
 
-
-
-
-
-let botonPagar = document.getElementById("botonPago");
-
 botonPagar.addEventListener('click', (e) => {
     e.preventDefault();
 
-    let resultado = productoVendido.reduce((total, producto) => total + producto.precio, 0);
-    alert(`su total a pagar es de $ ${resultado}`)
+    resultado = productoVendido.reduce((total, producto) => total + producto.precio, 0);
+    Swal.fire({
+
+        icon: 'success',
+        title: 'Su compra fue realizada',
+        showConfirmButton: false,
+        text: `su total a pagar es de $ ${resultado}`,
+        timer: 15000
+    })
 })
 
 
-let btnPagosTarjeta = document.getElementById("pagarTarjeta");
-btnPagosTarjeta.addEventListener(`click`, (e) => {
-    e.preventDefault();
-    formaDePagoTarjeta()
-})
 
-
-
-
-let modalBody = document.getElementById("modal-body")
 
 function cargarProductosCarrito(array) {
 
@@ -210,17 +190,13 @@ function cargarProductosCarrito(array) {
 
 
         })
-//todo se vuelve a usar la funcion compra total para que se actualize siempre que se sume como que se saque un producto del carrito
+        //todo se vuelve a usar la funcion compra total para que se actualize siempre que se sume como que se saque un producto del carrito
         compraTotal()
     })
 
 
 }
 
-
-
-
-let divCompra = document.getElementById("precioTotal")
 
 function compraTotal() {
     let totalModal = 0
@@ -233,7 +209,6 @@ function compraTotal() {
 botonCarrito.addEventListener("click", () => {
     cargarProductosCarrito(productoVendido)
 })
-
 
 
 
@@ -279,14 +254,7 @@ function modoOscuro() {
 
 }
 
-
-
-
-
 console.log(productoVendido)
-
-
-
 
 modoOscuro()
 
