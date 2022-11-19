@@ -15,12 +15,12 @@
     <!-- mis estilos -->
     <link rel="stylesheet" href="./misestilos.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
 
 
 </head>
 
 <body>
-
 
 
     <header>
@@ -80,25 +80,30 @@
 
         <h1>ALMACEN POWA</h1>
 
-
+        <div class="d-flex justify-content-center text-success " id="loaderIcon">
+            <div class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <br>
+        <h3 class="text-success text-center" id="loaderText">Cargando Productos...</h3>
 
 
         <!--!SECTION CARTS DOM 1 -->
         <section>
             <div id="productos__cart" class="d-flex justify-content-sm-evenly flex-row flex-wrap"></div>
-
         </section>
         <!--!SECTUIB CARTS DOM 1 -->
 
 
 
         <!--!BOtON PAGO -->
-        <div class="d-grid gap-2 col-6 mx-auto">
+        <!-- <div class="d-grid gap-2 col-6 mx-auto">
             <button id="botonPago" class="btn btn-primary" type="button">Pagar</button>
-            <!-- <button id="pagarTarjeta" class="btn btn-primary" type="button">tarjeta</button> -->
-        </div>
+        </div> -->
+        <!-- <button id="pagarTarjeta" class="btn btn-primary" type="button">tarjeta</button> -->
         <!--!BOtON PAGO -->
-       
+        <div id="botonPago2"></div>
     </main>
 
 
@@ -120,7 +125,6 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button id="botonPago" class="btn btn-primary" type="button">Pagar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" data-bs-dismiss="modal" class="btn btn-success"
                         id="botonFinalizarCompra">Finalizar Compra</button>
@@ -131,7 +135,11 @@
 
 
 
-    <footer></footer>
+    <footer>
+        <section>
+            
+        </section>
+    </footer>
 
 
 
@@ -144,7 +152,6 @@
 
 
     <!-- mi js -->
-    <script src="./mijs.js"></script>
     <!-- boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
@@ -153,6 +160,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- tostify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./mijs.js"></script>
 </body>
 
 </html>

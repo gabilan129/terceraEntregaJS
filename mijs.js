@@ -1,7 +1,15 @@
+
+
+
+
 //todo/ Captura de id
+// let botonPagar = document.getElementById("botonPago");
+let modalBody = document.getElementById("modal-body");
+let divCompra = document.getElementById("precioTotal");
+let loaderIcon = document.getElementById("loaderIcon");
+let loaderText = document.getElementById("loaderText")
+let botonPaga = document.getElementById("botonPago2")
 let botonPagar = document.getElementById("botonPago");
-let modalBody = document.getElementById("modal-body")
-let divCompra = document.getElementById("precioTotal")
 
 
 //Todo/ Array y objetos
@@ -79,7 +87,7 @@ function formaDePagoTarjeta() {
         console.log(valorConTarjeta.toFixed(1));
 
     }
-    
+
 }
 
 
@@ -99,13 +107,16 @@ function carts() {
         <h5 class="card-title">${prod.nombre}</h5>
                             <p class="card-text">El valor de su producto es de $ ${prod.precio} y contiene ${prod.calorias} calorias</p>
                             <p class="card-text"></p>
-                            <button id="boton__${prod.nombre}" class="btn btn-primary">agregar al carrito</button></div>    </div>
+                            <button id="boton__${prod.nombre}" class="btn btn-primary shake-opacity">agregar al carrito</button></div>    </div>
                             </div></section> `
         productosCart.appendChild(productoCompra)
 
 
 
+
         let botonAgregar = document.getElementById(`boton__${prod.nombre}`)
+
+
 
         botonAgregar.addEventListener('click', (e) => {
             e.preventDefault();
@@ -135,20 +146,31 @@ function carts() {
 
 }
 
+function pagar() {
 
-botonPagar.addEventListener('click', (e) => {
-    e.preventDefault();
 
-    resultado = productoVendido.reduce((total, producto) => total + producto.precio, 0);
-    Swal.fire({
+    let botonPagaCreado = document.createElement("div")
+    botonPagaCreado.innerHTML = ` <div class="d-grid gap-2 col-6 mx-auto">
+    <button id="botonPago" class="btn btn-primary" type="button">Pagar</button>
+    </div>`
+    botonPaga.appendChild(botonPagaCreado)
 
-        icon: 'success',
-        title: 'Su compra fue realizada',
-        showConfirmButton: false,
-        text: `su total a pagar es de $ ${resultado}`,
-        timer: 15000
+
+
+    botonPaga.addEventListener(`click`, (e) => {
+        e.preventDefault();
+        console.log("funciona boton pagar")
+        resultado = productoVendido.reduce((total, producto) => total + producto.precio, 0);
+        Swal.fire({
+
+            icon: 'success',
+            title: 'Su compra fue realizada',
+            showConfirmButton: false,
+            text: `su total a pagar es de $ ${resultado}`,
+            timer: 15000
+        })
     })
-})
+}
 
 
 
@@ -180,7 +202,9 @@ function cargarProductosCarrito(array) {
             let cardProducto = document.getElementById(`productoVendido${productoA2.id}`)
             cardProducto.remove()
             //!Eliminar del array de comprar
-            array.splice(indice, 1)
+            let eliminarProducto = array.find(productoA1 => productoA1.id == productoA2.id)
+            let posicion = array.indexOf(eliminarProducto)
+            array.splice(posicion, 1)
             console.log(productoA2)
             //!Eliminar del storage
             localStorage.setItem('carrito', JSON.stringify(array))
@@ -256,6 +280,19 @@ function modoOscuro() {
 
 console.log(productoVendido)
 
+
+
+
 modoOscuro()
 
-carts()
+setTimeout(() => {
+    loaderIcon.innerHTML = ""
+    loaderText.innerHTML = ""
+    carts()
+    pagar()
+}, 3000)
+
+
+
+
+
